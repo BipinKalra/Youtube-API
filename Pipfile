@@ -9,6 +9,7 @@ requests = "*"
 isodate = "*"
 django-bulk-update-or-create = "*"
 django-crontab = "*"
+python-decouple = "*"
 
 [dev-packages]
 
