@@ -1,5 +1,6 @@
 import requests
 from isodate import parse_duration
+from django.conf import settings
 
 class YoutubeExApi:
   def __init__(self, api_url, api_key):
@@ -7,7 +8,7 @@ class YoutubeExApi:
     self._api_key = api_key
 
   def fetch_videos(self, page = None):
-    ids = self._fetch_video_ids(page)
+    ids, next_page_token = self._fetch_video_ids(page)
 
     params = {
       "part": "snippet,contentDetails",
@@ -20,15 +21,19 @@ class YoutubeExApi:
 
     results = response.json()["items"]
 
-    return [
+    videos = [
       {
         "title" : video["snippet"]["title"],
         "url" : "https://www.youtube.com/watch?v=" + video["id"],
         "duration" : int(parse_duration(video["contentDetails"]["duration"]).total_seconds() // 60),
         "thumbnail" : video["snippet"]["thumbnails"]["high"]["url"],
+        "description": video["snippet"]["description"],
+        "id": video["id"]
       } 
       for video in results
     ]
+
+    return videos, next_page_token
 
   
   def _fetch_video_ids(self, page):
@@ -44,5 +49,12 @@ class YoutubeExApi:
     r = requests.get(f"{self._api_url}/youtube/v3/search", params=params)
 
     results = r.json()["items"]
+    next_page_token = r.json()["nextPageToken"]
 
-    return [video["id"]["videoId"] for video in results]
+    videos = [video["id"]["videoId"] for video in results]
+
+    return videos, next_page_token
+
+
+def get_youtube_exapi():
+  return YoutubeExApi(api_url = "https://www.googleapis.com", api_key = settings.YOUTUBE_DATA_API_KEY)

@@ -7,6 +7,8 @@ name = "pypi"
 django = "*"
 requests = "*"
 isodate = "*"
+django-bulk-update-or-create = "*"
+django-crontab = "*"
 
 [dev-packages]
 

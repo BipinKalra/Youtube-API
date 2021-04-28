@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'youtube_api',
+    'youtube',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 YOUTUBE_DATA_API_KEY = 'AIzaSyAWHWi_8QQ_411QYvFfC1gMJohnQ7B2z00'
+
+CRONJOBS = [
+    ('* * * * *', 'youtube.cron.sync_videos')
+]

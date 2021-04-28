@@ -1,10 +1,26 @@
 from django.db import models
+from bulk_update_or_create import BulkUpdateOrCreateQuerySet
 
 class Video(models.Model):
+  objects = BulkUpdateOrCreateQuerySet.as_manager()
+
+  video_id = models.CharField(primary_key=True, max_length=255)
   title = models.CharField(max_length=500)
-  url = models.URLField(max_length=500)
-  thumbnail = models.URLField(max_length=500)
+  url = models.URLField()
+  thumbnail = models.URLField()
   duration = models.IntegerField()
+  description = models.TextField()
 
   def __str__(self):
     return self.title
+
+  @classmethod
+  def from_dict(cls, dikt):
+    return cls(
+      video_id = dikt["id"],
+      title = dikt["title"],
+      url = dikt["url"],
+      thumbnail = dikt["thumbnail"],
+      duration = dikt["duration"],
+      description = dikt["description"]
+    )
