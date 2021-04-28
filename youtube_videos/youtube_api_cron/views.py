@@ -29,7 +29,8 @@ def index(request):
   video_params = {
     "part": "snippet,contentDetails",
     "key": settings.YOUTUBE_DATA_API_KEY,
-    "id": ",".join(video_ids)
+    "id": ",".join(video_ids),
+    "max_results": 9,
   }
 
   v = requests.get(video_url, params=video_params)
@@ -41,13 +42,15 @@ def index(request):
   for result in video_results:
     video = {
     "title" : result["snippet"]["title"],
-    "id" : result["id"],
-    "duration" : parse_duration(result["contentDetails"]["duration"]).total_seconds() // 60,
+    "url" : "https://www.youtube.com/watch?v=" + result["id"],
+    "duration" : int(parse_duration(result["contentDetails"]["duration"]).total_seconds() // 60),
     "thumbnail" : result["snippet"]["thumbnails"]["high"]["url"],
     }
 
     videos.append(video)
 
-  print(videos)
+    context = {
+      "videos": videos
+    }
 
-  return render(request, "search/index.html")
+  return render(request, "search/index.html", context)
