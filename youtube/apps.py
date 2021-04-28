@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class YoutubeApiCronConfig(AppConfig):
+class YoutubeApiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'youtube_api_cron'
+    name = 'youtube_api'

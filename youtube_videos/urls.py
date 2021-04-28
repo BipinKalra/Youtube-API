@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('youtube_api_cron.urls'))
+    path('', include('youtube_api.urls'))
 ]
