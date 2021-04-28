@@ -129,5 +129,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 YOUTUBE_DATA_API_KEY = 'AIzaSyAWHWi_8QQ_411QYvFfC1gMJohnQ7B2z00'
 
 CRONJOBS = [
-    ('* * * * *', 'youtube.cron.sync_videos')
+    ('* * * * *', 'django.core.management.call_command', ['sync_videos'])
 ]
