@@ -1,4 +1,5 @@
 import requests
+from isodate import parse_duration
 
 from django.conf import settings
 from django.shortcuts import render
@@ -41,7 +42,7 @@ def index(request):
     video = {
     "title" : result["snippet"]["title"],
     "id" : result["id"],
-    "duration" : result["contentDetails"]["duration"],
+    "duration" : parse_duration(result["contentDetails"]["duration"]).total_seconds() // 60,
     "thumbnail" : result["snippet"]["thumbnails"]["high"]["url"],
     }
 
