@@ -1,3 +1,10 @@
+'''
+Class YoutubeExApi is named such since this works with an external API to fetch content.
+The class has two functions, one of which is private since its only called within the public function.
+The private function _fetch_video_ids gets a list of video ids from the response of the request for a given search query.
+The public function fetch_videos takes that result and fetches the corresponding videos and returns a list of videos along with the next page token.
+'''
+
 import requests
 from isodate import parse_duration
 from django.conf import settings

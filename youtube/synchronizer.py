@@ -1,3 +1,9 @@
+'''
+YoutubeSynchronizer has a sync videos function which performs the fetch operation from exAPI thrice (capped currently, can be increased accroding to needs later).
+These responses are appended to a list, followed by conversion of each element into a dictionary before bulk addition to the DB.
+Herein, I have used bulk_update_or_create to perform an upsert function instead of a complete update/create.
+'''
+
 from youtube.models import Video
 from youtube.services.exapi import get_youtube_exapi
 from bulk_update_or_create import BulkUpdateOrCreateQuerySet

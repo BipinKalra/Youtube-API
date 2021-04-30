@@ -1,3 +1,5 @@
+# Pagination Serializer is used within the views to pagination meta along with paginated response
+
 from rest_framework import serializers
 from youtube.models import Video
 

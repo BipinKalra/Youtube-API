@@ -1,3 +1,5 @@
+# The from_dict function takes in a python object and returns an object of model class Video which is used before bulk create in the synchronizer
+
 from django.db import models
 from bulk_update_or_create import BulkUpdateOrCreateQuerySet
 
