@@ -22,6 +22,7 @@ class YoutubeSynchronizer():
       "thumbnail",
       "duration",
       "description",
+      "published_at"
     ]
     videos = [Video.from_dict(video) for video in videos]
     

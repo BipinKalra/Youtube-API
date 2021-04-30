@@ -2,23 +2,29 @@ from django.shortcuts import render
 from youtube.models import Video
 from api.serializer import *
 from rest_framework import generics, filters
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from api.utils.pagination import Pagination
 
-class VideoList(generics.ListAPIView):
-  def get_queryset(self):
-    offset = request.query_params.get('offset')
-    limit = request.query_params.get('limit')
-
-    if not (not offset and not limit):
-      return []
+class VideoList(APIView):
+  def get(self, request):
+    offset = request.query_params.get('offset', 0)
+    limit = request.query_params.get('limit', 10)
     
-    return Video.objects.all()
+    videos = Video.objects.order_by('-published_at')[offset:offset+limit]
+    pagination = Pagination(next_offset=offset+limit, limit=limit)
 
-  serializer_class = VideoSerializer
+    serializer = PaginatedVideoSerializer({
+      "videos": videos,
+      "pagination": pagination
+    })
+
+    return Response(serializer.data)
 
 
 class SearchList(generics.ListAPIView):
   # this searches using search query param
-  queryset = Video.objects.all()
+  queryset = Video.objects.order_by('-published_at')
   serializer_class = VideoSerializer
   filter_backends = [filters.SearchFilter]
 

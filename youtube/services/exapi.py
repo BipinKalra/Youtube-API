@@ -28,7 +28,8 @@ class YoutubeExApi:
         "duration" : int(parse_duration(video["contentDetails"]["duration"]).total_seconds() // 60),
         "thumbnail" : video["snippet"]["thumbnails"]["high"]["url"],
         "description": video["snippet"]["description"],
-        "id": video["id"]
+        "id": video["id"],
+        "publishedAt": video["snippet"]["publishedAt"]
       } 
       for video in results
     ]
