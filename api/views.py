@@ -8,8 +8,8 @@ from api.utils.pagination import Pagination
 
 class VideoList(APIView):
   def get(self, request):
-    offset = request.query_params.get('offset', 0)
-    limit = request.query_params.get('limit', 10)
+    offset = int(request.query_params.get('offset', 0))
+    limit = int(request.query_params.get('limit', 10))
     
     videos = Video.objects.order_by('-published_at')[offset:offset+limit]
     pagination = Pagination(next_offset=offset+limit, limit=limit)

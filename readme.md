@@ -25,6 +25,7 @@ The main project folder has the following subfolders along with their individual
 6. Run "python manage.py migrate"
 7. Run "python manage.py crontab add"
 8. Run "python manage.py runserver"
+9. 6. Use the [Postman Collection](https://www.getpostman.com/collections/ff0912278d9bb3b84101) to interact with the two APIs
 
 ### Thats the way - **DOCKER WAY**
 
@@ -33,6 +34,7 @@ The main project folder has the following subfolders along with their individual
 3. Install [docker](https://www.docker.com/get-started) in your computer
 4. Run "docker compose build"
 5. Run "docker compose up"
+6. Use the [Postman Collection](https://www.getpostman.com/collections/ff0912278d9bb3b84101) to interact with the two APIs
 
 _If you are a windows user, I would highly recomment going the "Docker Way!" :)_
 
