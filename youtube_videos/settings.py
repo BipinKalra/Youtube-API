@@ -16,14 +16,6 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4&pll^-e+b-69g8+ouy2cjs0iwe)d0$-5c_44s3(g#r0**4r(%'
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', default = ' ')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -41,8 +33,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'api',
     'youtube',
-    'django_crontab'
+    'django_crontab',
+    'rest_framework',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -132,6 +127,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 YOUTUBE_DATA_API_KEY = config('YOUTUBE_API_KEY', default = ' ')
 
+# Cronjob to fetch data from youtube api runs every 1 minute
 CRONJOBS = [
     ('* * * * *', 'django.core.management.call_command', ['sync_videos'])
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DATE_FORMAT': '%s',
+}

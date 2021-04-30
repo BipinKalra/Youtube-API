@@ -10,6 +10,8 @@ isodate = "*"
 django-bulk-update-or-create = "*"
 django-crontab = "*"
 python-decouple = "*"
+djangorestframework = "*"
+django-filter = "*"
 
 [dev-packages]
 
